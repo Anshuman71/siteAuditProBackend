@@ -1,0 +1,47 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "8.10.0",
+    "npm": "3.5.2"
+  },
+  "scripts": {
+    "build": "rimraf dist/ && babel . --ignore node_modules,babelrc,package.json,npm-debug.log --copy-files --out-dir dist/ && rimraf dist/node_modules",
+    "start": "yarn run build && node dist/src/index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
+    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
+  },
+  "dependencies": {
+    "apollo-server": "2.3.1",
+    "apollo-server-express": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "faker": "^4.1.0",
+    "graphql": "^0.10.5",
+    "graphql-date": "^1.0.3",
+    "graphql-tools": "^1.1.0",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.2.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/runtime": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "5.14.1",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-equimper": "^2.2.1",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-import": "2.16.0",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.3",
+    "rimraf": "^2.6.2"
+  }
+}
