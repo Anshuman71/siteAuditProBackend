@@ -2,12 +2,11 @@ import { AuthenticationError, ValidationError } from 'apollo-server';
 
 import User from '../../models/User';
 import { requireAuth } from '../../services/auth';
-import constants from '../../config/constants';
 
 export default {
   login: async (_, user) => {
     try {
-      let newUser = await User.findById({ email: user.email });
+      let newUser = await User.findOne({ email: user.email });
       // if no such user exists, create one
       if (!newUser) {
         newUser = await User.create(user);

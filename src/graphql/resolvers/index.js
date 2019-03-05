@@ -13,7 +13,7 @@ export default {
   Query: {
     me: UserResolvers.me,
     getIssueById: IssueResolvers.getIssueById,
-    getIssuesByProject: IssueResolvers.getIssuesByProject,
+    getIssuesByProjectId: IssueResolvers.getIssuesByProjectId,
     getProjectById: ProjectResolvers.getProjectById,
     getProjectsByUser: ProjectResolvers.getProjectsByUser,
   },
@@ -24,7 +24,7 @@ export default {
     createProject: ProjectResolvers.createProject,
     updateProject: ProjectResolvers.updateProject,
     deleteProject: ProjectResolvers.deleteProject,
-    signup: UserResolvers.signup,
+    login: UserResolvers.login,
     updateMe: UserResolvers.updateMe,
   },
 };

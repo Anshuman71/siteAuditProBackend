@@ -19,14 +19,13 @@ export default {
       throw new Error('problem finding Issue!');
     }
   },
-  getIssuesByProject: async (_, { projectId }, { user }) => {
+  getIssuesByProjectId: async (_, { _id }, { user }) => {
     try {
       await requireAuth(user);
-      const Issues = await Issue.find({ project: projectId });
+      const Issues = await Issue.find({ project: _id });
       return Issues;
     } catch (error) {
       console.log('get project Issues', { user }, { error });
-
       throw new Error('problem finding Issues!');
     }
   },
