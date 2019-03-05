@@ -19,7 +19,7 @@ export default {
       throw new Error('problem finding Project!');
     }
   },
-  getUserProjects: async (_, {}, { user }) => {
+  getProjectsByUser: async (_, {}, { user }) => {
     try {
       await requireAuth(user);
       const Projects = await Project.find({ user: user._id });

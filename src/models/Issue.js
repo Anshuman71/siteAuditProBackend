@@ -13,15 +13,14 @@ const IssueSchema = new Schema(
     },
     description: {
       type: String,
+    },
+    assignedTo: {
+      type: String,
+    },
+    status: {
+      type: String,
+      default: 'Un-assigned',
       required: true,
-    },
-    assignedTo:{
-      type:String,
-    },
-    status:{
-      type:String,
-      default:'Un-assigned',
-      required:true,
     },
     imageSrc: {
       type: [String],

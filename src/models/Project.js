@@ -10,7 +10,7 @@ const ProjectSchema = new Schema(
       type: String,
       required: true,
     },
-    auditorCompany:{
+    auditorCompany: {
       type: String,
       required: true,
     },
@@ -22,10 +22,10 @@ const ProjectSchema = new Schema(
       type: String,
       required: true,
     },
-    user:{
+    user: {
       type: Schema.Types.ObjectId,
-      ref:'User'      
-    }
+      ref: 'User',
+    },
   },
   { timestamps: true },
 );
