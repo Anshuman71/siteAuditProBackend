@@ -3,7 +3,7 @@ import Issue from '../../models/Issue';
 import { requireAuth } from '../../services/auth';
 
 export default {
-  getIssues: async (_, {}) => {
+  getAllIssues: async (_) => {
     try {
       const Issues = await Issue.find();
       return Issues;
@@ -11,15 +11,15 @@ export default {
       throw new Error("couldn't get Issues for you");
     }
   },
-  getIssue: async (_, { _id }) => {
+  getIssueById: async (_, { _id }) => {
     try {
-      const Issue = await Issue.findById(_id);
-      return Issue;
+      const issue = await Issue.findById(_id);
+      return issue;
     } catch (error) {
       throw new Error('problem finding Issue!');
     }
   },
-  getProjectIssues: async (_, {projectId}, { user }) => {
+  getIssuesByProject: async (_, { projectId }, { user }) => {
     try {
       await requireAuth(user);
       const Issues = await Issue.find({ project: projectId });
@@ -32,9 +32,8 @@ export default {
   },
   createIssue: async (_, args, { user }) => {
     try {
-      const me = await requireAuth(user);
-      const Issue = await Issue.create(args);
-      return Issue;
+      const issue = await Issue.create(args);
+      return issue;
     } catch (error) {
       console.log('create Issue', { user }, { error });
       throw new Error('oops the Issue fall of the stack!');
@@ -43,14 +42,14 @@ export default {
   updateIssue: async (_, { _id, ...rest }, { user }) => {
     try {
       await requireAuth(user);
-      const Issue = await Issue.findById({ _id });
-      if (!Issue) {
+      const issue = await Issue.findById({ _id });
+      if (!issue) {
         throw new UserInputError('requested Issue not found!');
       }
       Object.entries(rest).forEach(([key, value]) => {
-        Issue[key] = value;
+        issue[key] = value;
       });
-      return Issue.save();
+      return issue.save();
     } catch (error) {
       throw error;
     }
@@ -58,12 +57,12 @@ export default {
   deleteIssue: async (_, { _id }, { user }) => {
     try {
       await requireAuth(user);
-      const Issue = await Issue.findById({ _id });
+      const issue = await Issue.findById({ _id });
 
-      if (!Issue) {
+      if (!issue) {
         throw new UserInputError('requested Issue not found!');
       }
-      await Issue.remove();
+      await issue.remove();
       return { message: 'Delete Success!' };
     } catch (error) {
       console.log('delete', { user }, { error });

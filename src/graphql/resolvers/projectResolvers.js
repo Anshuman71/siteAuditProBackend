@@ -3,7 +3,7 @@ import Project from '../../models/Project';
 import { requireAuth } from '../../services/auth';
 
 export default {
-  getProjects: async (_, { }) => {
+  getAllProjects: async (_) => {
     try {
       const Projects = await Project.find();
       return Projects;
@@ -11,15 +11,15 @@ export default {
       throw new Error("couldn't get Projects for you");
     }
   },
-  getProject: async (_, { _id }) => {
+  getProjectById: async (_, { _id }) => {
     try {
-      const Project = await Project.findById(_id);
-      return Project;
+      const project = await Project.findById(_id);
+      return project;
     } catch (error) {
       throw new Error('problem finding Project!');
     }
   },
-  getUserProjects: async (_, { }, { user }) => {
+  getUserProjects: async (_, {}, { user }) => {
     try {
       await requireAuth(user);
       const Projects = await Project.find({ user: user._id });
@@ -33,8 +33,8 @@ export default {
   createProject: async (_, args, { user }) => {
     try {
       const me = await requireAuth(user);
-      const Project = await Project.create({...args, user:me._id});
-      return Project;
+      const project = await Project.create({ ...args, user: me._id });
+      return project;
     } catch (error) {
       console.log('create Project', { user }, { error });
       throw new Error('oops the Project fall of the stack!');
@@ -43,14 +43,14 @@ export default {
   updateProject: async (_, { _id, ...rest }, { user }) => {
     try {
       await requireAuth(user);
-      const Project = await Project.findById({ _id });
-      if (!Project) {
-        throw new UserInputError('requested Project not found!');
+      const project = await Project.findById({ _id });
+      if (!project) {
+        throw new UserInputError('requested project not found!');
       }
       Object.entries(rest).forEach(([key, value]) => {
-        Project[key] = value;
+        project[key] = value;
       });
-      return Project.save();
+      return project.save();
     } catch (error) {
       throw error;
     }
@@ -58,12 +58,12 @@ export default {
   deleteProject: async (_, { _id }, { user }) => {
     try {
       await requireAuth(user);
-      const Project = await Project.findById({ _id });
+      const project = await Project.findById({ _id });
 
-      if (!Project) {
-        throw new UserInputError('requested Project not found!');
+      if (!project) {
+        throw new UserInputError('requested project not found!');
       }
-      await Project.remove();
+      await project.remove();
       return { message: 'Delete Success!' };
     } catch (error) {
       console.log('delete', { user }, { error });

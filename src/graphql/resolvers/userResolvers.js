@@ -1,24 +1,20 @@
-import {
-  AuthenticationError,
-  ValidationError,
-  UserInputError,
-} from 'apollo-server';
+import { AuthenticationError, ValidationError } from 'apollo-server';
 
 import User from '../../models/User';
 import { requireAuth } from '../../services/auth';
-import { verifyEmail, forgotPassword } from '../../services/email';
 import constants from '../../config/constants';
 
 export default {
-  signup: async (_, user) => {
+  login: async (_, user) => {
     try {
-      const oldUser = await User.find({email: user.email });
-      //if no such user exists, create one
-      if(!oldUser)
-        const user = await User.create(user);
-      console.log('user-made', { user });
+      let newUser = await User.findById({ email: user.email });
+      // if no such user exists, create one
+      if (!newUser) {
+        newUser = await User.create(user);
+      }
+      console.log('user-made', { newUser });
       // Create JWT token
-      const token = user.createToken();
+      const token = newUser.createToken();
       // All done
       return {
         token,
@@ -30,18 +26,6 @@ export default {
       }
       throw error;
     }
-  },
-
-  login: async (_, { email, password }) => {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      throw new AuthenticationError('no user with this email');
-    }
-
-    return {
-      token: user.createToken(),
-    };
   },
 
   me: async (_, args, { user }) => {
