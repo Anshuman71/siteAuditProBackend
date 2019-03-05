@@ -7,7 +7,7 @@ import User from '../../models/User';
 
 export default {
   Date: GraphQLDate,
-  Issue: {
+  Project: {
     user: ({ user }) => User.findById(user),
   },
   Query: {
@@ -15,7 +15,7 @@ export default {
     getIssueById: IssueResolvers.getIssueById,
     getIssuesByProject: IssueResolvers.getIssuesByProject,
     getProjectById: ProjectResolvers.getProjectById,
-    getUserProjects: ProjectResolvers.getUserProjects,
+    getProjectsByUser: ProjectResolvers.getProjectsByUser,
   },
   Mutation: {
     createIssue: IssueResolvers.createIssue,
