@@ -16,6 +16,7 @@ const IssueSchema = new Schema(
     },
     assignedTo: {
       type: String,
+      default: 'No one',
     },
     status: {
       type: String,

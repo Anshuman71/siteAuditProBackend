@@ -20,9 +20,11 @@ export async function requireAuth(user) {
 export function decodeToken(token) {
   const arr = token.split(' ');
 
-  if (arr[0] === 'meow') {
-    return jwt.verify(arr[1], constants.JWT_SECRET);
+  try {
+    if (arr[0] === 'meow') {
+      return jwt.verify(arr[1], constants.JWT_SECRET);
+    }
+  } catch (err) {
+    throw new UserInputError('Token not valid!');
   }
-
-  throw new UserInputError('Token not valid!');
 }

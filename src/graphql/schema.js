@@ -55,19 +55,20 @@ export default `
   }
   type Query {
     getIssueById(_id: ID!): Issue
-    getIssuesByProject: [Issue]
+    getIssuesByProjectId(_id:ID!): [Issue]
     getProjectsByUser: [Project]
+    getProjectById(_id:ID): [Project]
     me: Me
   }
 
   type Mutation {
-    createIssue(title: String!, project: String!, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
+    createIssue(title: String!, project: ID!, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
     deleteIssue(_id: ID!): Status
     updateIssue(_id: ID!,title: String, project: String, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
-    createProject(title: String!, client: String!, auditorCompany:String, auditorName:String, location:String,user:User): Project
+    createProject(title: String!, client: String!, auditorCompany:String, auditorName:String, location:String): Project
     deleteProject(_id: ID!): Status
     updateProject(_id: ID!,title: String, client: String, auditorCompany:String, auditorName:String, location:String): Project
-    signup(email: String!, userName: String!,FCMToken:String, avatar: String): Auth
+    login(email: String!, userName: String!,FCMToken:String, avatar: String): Auth
     updateMe(avatar: String,token:String): Me
   }
 
