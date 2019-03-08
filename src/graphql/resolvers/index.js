@@ -25,6 +25,5 @@ export default {
     updateProject: ProjectResolvers.updateProject,
     deleteProject: ProjectResolvers.deleteProject,
     login: UserResolvers.login,
-    updateMe: UserResolvers.updateMe,
   },
 };

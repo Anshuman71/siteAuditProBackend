@@ -62,15 +62,15 @@ export default {
       return new AuthenticationError("couldn't recognize you!");
     }
   },
-  updateMe: async (_, args, { user }) => {
-    try {
-      const me = await requireAuth(user);
-      Object.entries(args).forEach(([key, value]) => {
-        me[key] = value;
-      });
-      return me.save();
-    } catch (error) {
-      return new Error("couldn't update details!");
-    }
-  },
+  // updateMe: async (_, args, { user }) => {
+  //   try {
+  //     const me = await requireAuth(user);
+  //     Object.entries(args).forEach(([key, value]) => {
+  //       me[key] = value;
+  //     });
+  //     return me.save();
+  //   } catch (error) {
+  //     return new Error("couldn't update details!");
+  //   }
+  // },
 };
