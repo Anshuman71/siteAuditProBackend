@@ -13,6 +13,7 @@ export default `
     _id: ID!
     email: String!
     userName: String!
+    gender: String!
     FCMToken:String
     avatar: String
     createdAt: Date!
@@ -23,6 +24,7 @@ export default `
     _id: ID!
     email: String!
     userName: String!
+    gender: String!
     avatar: String
     FCMToken:String
     createdAt: Date!
@@ -62,14 +64,13 @@ export default `
   }
 
   type Mutation {
-    createIssue(title: String!, project: ID!, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
+    createIssue(title: String!, project: String!, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
     deleteIssue(_id: ID!): Status
-    updateIssue(_id: ID!,title: String, project: String, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
+    updateIssue(_id: ID!,title: String, description:String, assignedTo:String, status:String,imageSrc: [String]): Issue
     createProject(title: String!, client: String!, auditorCompany:String, auditorName:String, location:String): Project
     deleteProject(_id: ID!): Status
     updateProject(_id: ID!,title: String, client: String, auditorCompany:String, auditorName:String, location:String): Project
-    login(email: String!, userName: String!,FCMToken:String, avatar: String): Auth
-    updateMe(avatar: String,token:String): Me
+    login(email: String!, userName: String!,FCMToken:String,gender:String, avatar: String): Auth
   }
 
   schema {
