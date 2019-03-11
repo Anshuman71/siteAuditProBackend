@@ -43,6 +43,13 @@ export default `
     updatedAt: Date!
   }
 
+  type Stats {
+    projects: Int
+    unAssigned:Int
+    fixed:Int
+    assigned:Int
+  }
+
   type Project {
     _id: ID!
     title: String!
@@ -60,6 +67,7 @@ export default `
     getIssuesByProjectId(_id:ID!): [Issue]
     getProjectsByUser: [Project]
     getProjectById(_id:ID): [Project]
+    stats: Stats
     me: Me
   }
 
