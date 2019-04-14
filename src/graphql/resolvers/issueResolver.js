@@ -22,7 +22,7 @@ export default {
   getIssuesByProjectId: async (_, { _id }, { user }) => {
     try {
       await requireAuth(user);
-      const Issues = await Issue.find({ project: _id });
+      const Issues = await Issue.find({ projectId: _id });
       return Issues;
     } catch (error) {
       console.log('get project Issues', { user }, { error });
