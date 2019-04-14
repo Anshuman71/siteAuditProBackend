@@ -78,11 +78,11 @@ export default `
     createProject(title: String!, client: String!, auditorCompany:String, auditorName:String, location:String): Project
     deleteProject(_id: ID!): Status
     updateProject(_id: ID!,title: String, client: String, auditorCompany:String, auditorName:String, location:String): Project
-    login(email: String!, userName: String!,FCMToken:String,gender:String, avatar: String): Auth
+    login(email: String!, userName: String!, FCMToken: String, gender: String!, avatar: String): Auth
   }
 
   schema {
     query: Query
     mutation: Mutation
   }
-`;
+`
