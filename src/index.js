@@ -1,21 +1,16 @@
 /* eslint-disable no-console */
 
 import express from 'express';
-import { createServer } from 'http';
-
 import './config/db';
 import constants from './config/constants';
-
 import middlewares from './config/middlewares';
 
 const app = express();
 
 middlewares(app);
 
-const graphQLServer = createServer(app);
-
 // mocks().then(() => {
-graphQLServer.listen(constants.PORT, (err) => {
+app.listen(constants.PORT, (err) => {
   if (err) {
     console.error(err);
   } else {

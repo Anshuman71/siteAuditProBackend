@@ -21,7 +21,7 @@ export function decodeToken(token) {
   const arr = token.split(' ')
 
   try {
-    if (arr[0] === 'meow') {
+    if (arr[0] === 'Bearer') {
       return jwt.verify(arr[1], constants.JWT_SECRET)
     }
   } catch (err) {
