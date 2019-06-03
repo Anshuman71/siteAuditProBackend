@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": "10.15.2",
-    "npm": "3.5.2"
-  },
   "scripts": {
     "build": "rimraf dist/ && babel . --ignore node_modules,babelrc,package.json,npm-debug.log --copy-files --out-dir dist/ && rimraf dist/node_modules",
     "start": "yarn run build && node dist/src/index.js",
@@ -28,7 +24,8 @@
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-proposal-object-rest-spread": "7.2.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
