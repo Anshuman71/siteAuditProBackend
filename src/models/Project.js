@@ -6,9 +6,24 @@ const ProjectSchema = new Schema(
       type: String,
       required: true,
     },
-    client: {
+    clientName: {
       type: String,
       required: true,
+    },
+    deadLine: {
+      type: Date,
+    },
+    // TODO: use `populate` while query
+    issues: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Issue',
+        required: true,
+      },
+    ],
+    images: {
+      type: [String],
+      default: [],
     },
     auditorCompany: {
       type: String,
@@ -25,6 +40,7 @@ const ProjectSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
   },
   { timestamps: true },

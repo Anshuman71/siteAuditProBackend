@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
+const STATUS = ['TODO', 'DONE', 'LATE', 'ASSIGNED', 'UNASSIGNED']
+
 const IssueSchema = new Schema(
   {
     title: {
@@ -8,20 +10,20 @@ const IssueSchema = new Schema(
     },
     projectId: {
       type: Schema.Types.ObjectId,
-      ref: 'project',
+      ref: 'Project',
       required: true,
     },
-    description: {
+    comment: {
       type: String,
     },
-    assignedTo: {
+    assignee: {
       type: String,
       default: 'No one',
     },
     status: {
       type: String,
-      default: 'Un-assigned',
-      required: true,
+      enum: STATUS,
+      default: 'UNASSIGNED',
     },
     imageSrc: {
       type: [String],

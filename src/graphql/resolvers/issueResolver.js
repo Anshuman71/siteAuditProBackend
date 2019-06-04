@@ -13,9 +13,12 @@ export default {
   },
   getIssueById: async (_, { _id }) => {
     try {
-      const issue = await Issue.findById(_id);
+      const issue = await Issue.findById(_id)
+        .populate('projectId')
+        .exec();
       return issue;
     } catch (error) {
+      console.log({ error });
       throw new Error('problem finding Issue!');
     }
   },
