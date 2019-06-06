@@ -1,25 +1,31 @@
 import mongoose, { Schema } from 'mongoose';
 import jwt from 'jsonwebtoken';
-
 import constants from '../config/constants';
+
+const PLANS = ['BASIC', 'PRO', 'PRIME'];
 
 const UserSchema = new Schema(
   {
+    userName: {
+      type: String,
+      required: true,
+    },
+    profilePic: String,
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: 'Company',
+    },
     email: {
       type: String,
       required: true,
       unique: true,
     },
-    userName: {
+    plan: {
       type: String,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
+      enum: PLANS,
+      default: PLANS[0],
     },
     FCMToken: String,
-    avatar: String,
   },
   { timestamps: true },
 );

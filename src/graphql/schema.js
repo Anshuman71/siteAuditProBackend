@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express'
+import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   scalar Date
@@ -11,35 +11,38 @@ const typeDefs = gql`
     token: String
   }
 
+  enum Plan {
+    BASIC
+    PRO
+    PRIME
+  }
+
   type User {
     _id: ID!
-    email: String!
     userName: String!
-    gender: String!
+    profilePic: String
+    email: String!
+    plan: Plan
     FCMToken: String
-    avatar: String
     createdAt: Date!
     updatedAt: Date!
   }
 
-  type Me {
-    _id: ID!
-    email: String!
-    userName: String!
-    gender: String!
-    avatar: String
-    FCMToken: String
-    createdAt: Date!
-    updatedAt: Date!
+  enum STATUS {
+    TODO
+    DONE
+    LATE
+    ASSIGNED
+    UNASSIGNED
   }
 
   type Issue {
     _id: ID!
     title: String!
-    projectId: String!
-    description: String
-    assignedTo: String
-    status: String
+    projectId: Project!
+    comment: String
+    assignee: String
+    status: STATUS
     imageSrc: [String]
     createdAt: Date!
     updatedAt: Date!
@@ -55,44 +58,77 @@ const typeDefs = gql`
   type Project {
     _id: ID!
     title: String!
-    client: String!
+    clientName: String!
+    deadLine: Date
+    issues: [Issue]
+    images: [String]
     auditorCompany: String!
-    location: String!
     auditorName: String!
-    user: User
+    location: String!
+    user: User!
     createdAt: Date!
     updatedAt: Date!
   }
+
+  type Company {
+    _id: ID!
+    name: String!
+    logo: String
+    location: String
+    createdAt: Date!
+    updatedAt: Date!
+  }
+
   type Query {
+    # Comapny
+    Company(_id: ID!): Company
+    Comapnies: [Company]
+    # Issue
     getIssueById(_id: ID!): Issue
     getIssuesByProjectId(_id: ID!): [Issue]
+    # Project
     getProjectsByUser: [Project]
     getProjectById(_id: ID): Project
     stats: Stats
-    me: Me
+    # Me
+    me: User
   }
 
   type Mutation {
+    # Comapny
+    createCompany(name: String!, logo: String, location: String): Company
+    updateCompany(
+      _id: ID!
+      name: String
+      logo: String
+      location: String
+    ): Company
+    deleteCompany(_id: ID!): Status
+    # Issue
     createIssue(
       title: String!
       projectId: String!
-      description: String
-      assignedTo: String
-      status: String
+      comment: String
+      assignee: String
+      status: STATUS
       imageSrc: [String]
     ): Issue
     deleteIssue(_id: ID!): Status
     updateIssue(
       _id: ID!
       title: String
-      description: String
-      assignedTo: String
-      status: String
+      comment: String
+      assignee: String
+      status: STATUS
       imageSrc: [String]
     ): Issue
+    # Project
     createProject(
       title: String!
-      client: String!
+      clientName: String!
+      deadLine: Date
+      issues: [String]
+      images: [String]
       auditorCompany: String!
       auditorName: String!
       location: String!
@@ -106,12 +142,12 @@ const typeDefs = gql`
       auditorName: String
       location: String
     ): Project
+    # Me
     login(
       email: String!
       userName: String!
       FCMToken: String
-      gender: String!
-      avatar: String
+      profilePic: String
     ): Auth
   }
 
@@ -119,5 +155,5 @@ const typeDefs = gql`
     query: Query
     mutation: Mutation
   }
-`
-export default typeDefs
+`;
+export default typeDefs;
