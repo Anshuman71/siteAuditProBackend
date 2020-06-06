@@ -10,7 +10,7 @@
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
   },
   "dependencies": {
-    "apollo-server": "^2.6.1",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.6.1",
     "body-parser": "^1.17.2",
     "cross-env": "^5.0.1",
